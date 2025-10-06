@@ -88,10 +88,46 @@ The API will be available at:
 - API documentation: http://localhost:9090/api/v1/openapi.json
 - Interactive docs: http://localhost:9090/docs
 
-## Health Endpoints
+## API Endpoints
 
+### Health Endpoints
 - `GET /api/v1/health/` - Basic health check
 - `GET /api/v1/health/ready` - Readiness check
+
+### Authentication Endpoints
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - Login user and get access token
+- `GET /api/v1/auth/me` - Get current user information (requires authentication)
+
+### Example Usage
+
+**Register a new user:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "username": "username",
+    "password": "password123",
+    "full_name": "Full Name"
+  }'
+```
+
+**Login:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user@example.com",
+    "password": "password123"
+  }'
+```
+
+**Get user info (requires token):**
+```bash
+curl -X GET "http://localhost:9090/api/v1/auth/me" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
 ## Configuration
 
