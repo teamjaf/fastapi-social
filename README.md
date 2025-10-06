@@ -181,6 +181,11 @@ curl -X PUT "http://localhost:9090/api/v1/profile/me" \
   }'
 ```
 
+**Get all profiles:**
+```bash
+curl -X GET "http://localhost:9090/api/v1/profile/all?limit=10&offset=0&university=Tech%20University&gender=male"
+```
+
 **Search profiles:**
 ```bash
 curl -X GET "http://localhost:9090/api/v1/profile/search?university=Tech%20University&major=Computer%20Science&limit=10"
