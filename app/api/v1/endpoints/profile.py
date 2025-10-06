@@ -165,6 +165,112 @@ def patch_my_profile(
 
 
 @router.get(
+    "/all",
+    response_model=List[ProfilePublic],
+    status_code=status.HTTP_200_OK,
+    summary="Get All Profiles",
+    description="Retrieve all user profiles with pagination and optional filtering",
+    response_description="Returns a list of public user profiles",
+    responses={
+        200: {
+            "description": "Profiles retrieved successfully",
+            "model": List[ProfilePublic]
+        },
+        422: {
+            "description": "Invalid query parameters",
+            "content": {
+                "application/json": {
+                    "example": {"detail": [{"loc": ["query", "limit"], "msg": "ensure this value is greater than 0"}]}
+                }
+            }
+        }
+    }
+)
+def get_all_profiles(
+    limit: int = Query(20, ge=1, le=100, description="Number of profiles to return (1-100)"),
+    offset: int = Query(0, ge=0, description="Number of profiles to skip"),
+    university: Optional[str] = Query(None, description="Filter by university name"),
+    major: Optional[str] = Query(None, description="Filter by major"),
+    current_role: Optional[str] = Query(None, description="Filter by current role"),
+    gender: Optional[str] = Query(None, description="Filter by gender"),
+    religion: Optional[str] = Query(None, description="Filter by religion"),
+    db: Session = Depends(get_db)
+):
+    """
+    **Get All User Profiles**
+    
+    Retrieve a paginated list of all user profiles with optional filtering capabilities.
+    This endpoint returns public profile information (excluding sensitive data like email and date of birth).
+    
+    **Query Parameters:**
+    - `limit`: Number of profiles to return (1-100, default: 20)
+    - `offset`: Number of profiles to skip for pagination (default: 0)
+    - `university`: Filter profiles by university name (optional)
+    - `major`: Filter profiles by academic major (optional)
+    - `current_role`: Filter by current role - student, alumni, faculty, staff, visiting_scholar (optional)
+    - `gender`: Filter by gender - male, female (optional)
+    - `religion`: Filter by religion - islam, hindu, christian, other (optional)
+    
+    **Pagination:**
+    - Use `limit` to control how many profiles are returned
+    - Use `offset` to skip profiles for pagination
+    - Example: `?limit=10&offset=20` returns profiles 21-30
+    
+    **Filtering:**
+    - Multiple filters can be combined
+    - All filters are case-insensitive partial matches
+    - Example: `?university=Tech&major=Computer&gender=male`
+    
+    **Returns:**
+    - `List[ProfilePublic]`: Array of public profile objects
+    
+    **Example Usage:**
+    ```
+    GET /api/v1/profile/all?limit=10&offset=0&university=Tech%20University&major=Computer%20Science
+    ```
+    
+    **Response Format:**
+    ```json
+    [
+      {
+        "id": 1,
+        "username": "johndoe",
+        "full_name": "John Doe",
+        "university": "Tech University",
+        "major": "Computer Science",
+        "current_role": "student",
+        "gender": "male",
+        "religion": "islam",
+        "one_line_bio": "CS student passionate about AI",
+        "hobbies": ["Coding", "Reading"],
+        "interests": ["AI", "Machine Learning"],
+        "dream_role": "Software Engineer"
+      }
+    ]
+    ```
+    """
+    user_repo = UserRepository(db)
+    
+    # Build filter parameters
+    filters = {}
+    if university:
+        filters['university'] = university
+    if major:
+        filters['major'] = major
+    if current_role:
+        filters['current_role'] = current_role
+    if gender:
+        filters['gender'] = gender
+    if religion:
+        filters['religion'] = religion
+    
+    # Get profiles with filters and pagination
+    profiles = user_repo.get_all_profiles(limit=limit, offset=offset, **filters)
+    
+    return profiles
+
+
+@router.get(
     "/{user_id}",
     response_model=ProfilePublic,
     status_code=status.HTTP_200_OK,

@@ -127,3 +127,22 @@ class UserRepository:
         if not verify_password(password, user.hashed_password):
             return None
         return user
+
+    def get_all_profiles(self, limit: int = 20, offset: int = 0, **filters) -> List[User]:
+        """Get all user profiles with optional filtering and pagination"""
+        query = self.db.query(User).filter(User.is_active == True)
+        
+        # Apply filters
+        if 'university' in filters and filters['university']:
+            query = query.filter(User.university.ilike(f"%{filters['university']}%"))
+        if 'major' in filters and filters['major']:
+            query = query.filter(User.major.ilike(f"%{filters['major']}%"))
+        if 'current_role' in filters and filters['current_role']:
+            query = query.filter(User.current_role == filters['current_role'])
+        if 'gender' in filters and filters['gender']:
+            query = query.filter(User.gender == filters['gender'])
+        if 'religion' in filters and filters['religion']:
+            query = query.filter(User.religion == filters['religion'])
+        
+        # Apply pagination and ordering
+        return query.order_by(User.created_at.desc()).offset(offset).limit(limit).all()

@@ -106,6 +106,7 @@ The API will be available at:
 - `PUT /api/v1/profile/me` - Update current user's profile (requires authentication)
 - `PATCH /api/v1/profile/me` - Partially update profile fields (requires authentication)
 - `DELETE /api/v1/profile/me` - Delete user account (requires authentication)
+- `GET /api/v1/profile/all` - Get all user profiles with pagination and filtering
 - `GET /api/v1/profile/{user_id}` - Get public profile of any user
 - `GET /api/v1/profile/search` - Search profiles by criteria
 - `POST /api/v1/profile/me/verify-school-email` - Verify school email (requires authentication)
@@ -174,7 +175,9 @@ curl -X PUT "http://localhost:9090/api/v1/profile/me" \
     "one_line_bio": "CS student passionate about AI",
     "interests": ["Machine Learning", "Web Development"],
     "hobbies": ["Coding", "Reading", "Gaming"],
-    "dream_role": "Senior Software Engineer at Google"
+    "dream_role": "Senior Software Engineer at Google",
+    "gender": "male",
+    "religion": "islam"
   }'
 ```
 
@@ -202,6 +205,8 @@ The user profile system supports the following fields:
 - `is_school_email_verified` - Email verification status
 - `avatar_url` - Profile picture URL
 - `dob` - Date of birth
+- `gender` - Gender (male, female)
+- `religion` - Religion (islam, hindu, christian, other)
 
 **Bio & Interests:**
 - `one_line_bio` - Short bio
