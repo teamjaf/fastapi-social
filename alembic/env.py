@@ -10,6 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from app.core.database import Base
 from app.models.user import User  # Import all models here
+from app.models.password_reset import PasswordResetToken  # Import all models here
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

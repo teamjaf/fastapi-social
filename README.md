@@ -98,6 +98,8 @@ The API will be available at:
 - `POST /api/v1/auth/register` - Register a new user
 - `POST /api/v1/auth/login` - Login user and get access token
 - `GET /api/v1/auth/me` - Get current user information (requires authentication)
+- `POST /api/v1/auth/forgot-password` - Request password reset token
+- `POST /api/v1/auth/reset-password` - Reset password using token
 
 ### Example Usage
 
@@ -127,6 +129,25 @@ curl -X POST "http://localhost:9090/api/v1/auth/login" \
 ```bash
 curl -X GET "http://localhost:9090/api/v1/auth/me" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**Forgot password:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/auth/forgot-password" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com"
+  }'
+```
+
+**Reset password:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/auth/reset-password" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "token": "RESET_TOKEN_FROM_EMAIL",
+    "new_password": "newpassword123"
+  }'
 ```
 
 ## Configuration
