@@ -7,10 +7,26 @@ class UserBase(BaseModel):
     email: EmailStr
     username: str
     full_name: Optional[str] = None
+    university: Optional[str] = None
 
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    email: EmailStr
+    username: str
     password: str
+    full_name: str
+    university: str
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "email": "john.doe@university.edu",
+                "username": "johndoe123",
+                "password": "securepassword123",
+                "full_name": "John Doe",
+                "university": "State University"
+            }
+        }
 
 
 class UserUpdate(BaseModel):
@@ -34,8 +50,16 @@ class User(UserInDB):
 
 
 class UserLogin(BaseModel):
-    username: str
+    username: str  # Can be email or username
     password: str
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "username": "john.doe@university.edu",  # Can be email or username
+                "password": "securepassword123"
+            }
+        }
 
 
 class Token(BaseModel):

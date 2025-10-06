@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.core.database import get_db
@@ -10,12 +10,12 @@ from app.repositories.user import UserRepository
 from app.utils.auth import verify_token
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+security = HTTPBearer()
 
 
-def get_current_user_id(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> int:
+def get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)) -> int:
     """Get current user ID from JWT token"""
-    email = verify_token(token)
+    email = verify_token(credentials.credentials)
     user_repo = UserRepository(db)
     user = user_repo.get_user_by_email(email)
     if not user:

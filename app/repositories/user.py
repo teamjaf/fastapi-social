@@ -29,6 +29,7 @@ class UserRepository:
             email=user.email,
             username=user.username,
             full_name=user.full_name,
+            university=user.university,
             hashed_password=hashed_password
         )
         self.db.add(db_user)
@@ -112,9 +113,15 @@ class UserRepository:
         self.db.commit()
         return True
 
-    def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        """Authenticate user with email and password"""
-        user = self.get_user_by_email(email)
+    def authenticate_user(self, username_or_email: str, password: str) -> Optional[User]:
+        """Authenticate user with email or username and password"""
+        # Try to find user by email first
+        user = self.get_user_by_email(username_or_email)
+        
+        # If not found by email, try by username
+        if not user:
+            user = self.get_user_by_username(username_or_email)
+        
         if not user:
             return None
         if not verify_password(password, user.hashed_password):

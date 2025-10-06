@@ -101,6 +101,15 @@ The API will be available at:
 - `POST /api/v1/auth/forgot-password` - Request password reset token
 - `POST /api/v1/auth/reset-password` - Reset password using token
 
+### User Profile Endpoints
+- `GET /api/v1/profile/me` - Get current user's complete profile (requires authentication)
+- `PUT /api/v1/profile/me` - Update current user's profile (requires authentication)
+- `PATCH /api/v1/profile/me` - Partially update profile fields (requires authentication)
+- `DELETE /api/v1/profile/me` - Delete user account (requires authentication)
+- `GET /api/v1/profile/{user_id}` - Get public profile of any user
+- `GET /api/v1/profile/search` - Search profiles by criteria
+- `POST /api/v1/profile/me/verify-school-email` - Verify school email (requires authentication)
+
 ### Example Usage
 
 **Register a new user:**
@@ -149,6 +158,61 @@ curl -X POST "http://localhost:9090/api/v1/auth/reset-password" \
     "new_password": "newpassword123"
   }'
 ```
+
+**Update user profile:**
+```bash
+curl -X PUT "http://localhost:9090/api/v1/profile/me" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "university": "Tech University",
+    "campus": "Main Campus",
+    "major": "Computer Science",
+    "current_class": "senior",
+    "graduation_year": 2025,
+    "current_role": "student",
+    "one_line_bio": "CS student passionate about AI",
+    "interests": ["Machine Learning", "Web Development"],
+    "hobbies": ["Coding", "Reading", "Gaming"],
+    "dream_role": "Senior Software Engineer at Google"
+  }'
+```
+
+**Search profiles:**
+```bash
+curl -X GET "http://localhost:9090/api/v1/profile/search?university=Tech%20University&major=Computer%20Science&limit=10"
+```
+
+## Profile Fields
+
+The user profile system supports the following fields:
+
+**Academic Information:**
+- `university` - University name
+- `campus` - Campus location
+- `major` - Academic major
+- `current_class` - Academic year (freshman, sophomore, junior, senior, graduate, phd, postdoc)
+- `graduation_year` - Expected graduation year
+- `enrollment_status` - Current status (enrolled, graduated, dropped_out, on_leave, transferred)
+- `current_role` - Role (student, alumni, faculty, staff, visiting_scholar)
+
+**Personal Information:**
+- `full_name` - Full name
+- `school_email` - University email address
+- `is_school_email_verified` - Email verification status
+- `avatar_url` - Profile picture URL
+- `dob` - Date of birth
+
+**Bio & Interests:**
+- `one_line_bio` - Short bio
+- `full_bio` - Detailed bio
+- `hobbies` - Array of hobbies
+- `interests` - Array of interests
+- `dream_role` - Dream profession or role
+- `links` - Array of social links
+
+**Professional:**
+- `current_organization` - Current organization/company
 
 ## Configuration
 

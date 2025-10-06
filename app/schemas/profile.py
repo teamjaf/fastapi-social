@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, validator
 from typing import Optional, List, Dict, Any
-from datetime import date
+from datetime import date, datetime
 from enum import Enum
 
 
@@ -30,6 +30,18 @@ class CurrentRole(str, Enum):
     VISITING_SCHOLAR = "visiting_scholar"
 
 
+class Gender(str, Enum):
+    MALE = "male"
+    FEMALE = "female"
+
+
+class Religion(str, Enum):
+    ISLAM = "islam"
+    HINDU = "hindu"
+    CHRISTIAN = "christian"
+    OTHER = "other"
+
+
 class ProfileBase(BaseModel):
     full_name: Optional[str] = None
     school_email: Optional[EmailStr] = None
@@ -49,6 +61,8 @@ class ProfileBase(BaseModel):
     interests: Optional[List[str]] = None
     dream_role: Optional[str] = None
     links: Optional[List[Dict[str, str]]] = None
+    gender: Optional[Gender] = None
+    religion: Optional[Religion] = None
 
     @validator('graduation_year')
     def validate_graduation_year(cls, v):
@@ -79,7 +93,23 @@ class ProfileCreate(ProfileBase):
 
 
 class ProfileUpdate(ProfileBase):
-    pass
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "university": "Tech University",
+                "campus": "Main Campus",
+                "major": "Computer Science",
+                "current_class": "senior",
+                "graduation_year": 2025,
+                "current_role": "student",
+                "one_line_bio": "CS student passionate about AI and Machine Learning",
+                "interests": ["Artificial Intelligence", "Machine Learning", "Web Development"],
+                "hobbies": ["Coding", "Reading", "Gaming"],
+                "dream_role": "Senior Software Engineer at Google",
+                "gender": "male",
+                "religion": "islam"
+            }
+        }
 
 
 class ProfileResponse(ProfileBase):
@@ -90,6 +120,14 @@ class ProfileResponse(ProfileBase):
     is_active: bool
     created_at: str
     updated_at: Optional[str] = None
+
+    @validator('created_at', 'updated_at', pre=True)
+    def parse_datetime(cls, v):
+        if v is None:
+            return None
+        if isinstance(v, datetime):
+            return v.isoformat()
+        return v
 
     class Config:
         from_attributes = True
@@ -113,6 +151,8 @@ class ProfilePublic(BaseModel):
     interests: Optional[List[str]] = None
     dream_role: Optional[str] = None
     links: Optional[List[Dict[str, str]]] = None
+    gender: Optional[Gender] = None
+    religion: Optional[Religion] = None
 
     class Config:
         from_attributes = True

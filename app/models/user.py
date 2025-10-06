@@ -36,6 +36,8 @@ class User(Base):
     interests = Column(JSON, nullable=True)  # Array of interests
     dream_role = Column(String, nullable=True)  # Dream profession or role
     links = Column(JSON, nullable=True)  # Array of social links
+    gender = Column(String, nullable=True)  # male, female
+    religion = Column(String, nullable=True)  # islam, hindu, christian, other
     
     # Relationships
     password_reset_tokens = relationship("PasswordResetToken", back_populates="user")

@@ -1,6 +1,6 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.config import settings
@@ -17,7 +17,7 @@ from app.utils.password_reset import (
 
 router = APIRouter()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+security = HTTPBearer()
 
 
 @router.post(
@@ -25,7 +25,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
     response_model=User,
     status_code=status.HTTP_201_CREATED,
     summary="Register New User",
-    description="Create a new user account with email, username, and password",
+    description="Create a new user account with mandatory fields: email, username, password, full_name, and university",
     response_description="Returns the created user information (password excluded)",
     responses={
         201: {
@@ -53,7 +53,8 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     - `email`: Valid email address (must be unique)
     - `username`: Username (must be unique, 3-50 characters)
     - `password`: Password (minimum 8 characters recommended)
-    - `full_name`: Optional full name of the user
+    - `full_name`: Full name of the user (mandatory)
+    - `university`: University name (mandatory)
     
     **Validation Rules:**
     - Email must be a valid email format
@@ -128,7 +129,7 @@ def login(user_login: UserLogin, db: Session = Depends(get_db)):
     The token can be used to access protected endpoints.
     
     **Request Body:**
-    - `username`: User's email address or username
+    - `username`: User's email address OR username (both work)
     - `password`: User's password
     
     **Authentication Process:**
@@ -149,7 +150,7 @@ def login(user_login: UserLogin, db: Session = Depends(get_db)):
     - `token_type`: Always "bearer"
     
     **Error Responses:**
-    - `401 Unauthorized`: Invalid email/username or password
+        - `401 Unauthorized`: Invalid email/username or password (tries both email and username)
     - `422 Unprocessable Entity`: Invalid request format
     
     **Security Notes:**
@@ -208,7 +209,7 @@ def login(user_login: UserLogin, db: Session = Depends(get_db)):
     }
 )
 def read_users_me(
-    token: str = Depends(oauth2_scheme),
+    credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
     """
@@ -248,7 +249,7 @@ def read_users_me(
     """
     from app.utils.auth import verify_token
     
-    email = verify_token(token)
+    email = verify_token(credentials.credentials)
     user_repo = UserRepository(db)
     user = user_repo.get_user_by_email(email)
     
