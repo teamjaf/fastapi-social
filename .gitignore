@@ -1,0 +1,677 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/#use-with-ide
+.pdm.toml
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be added to the global gitignore or merged into this project gitignore.  For a PyCharm
+#  project, it is recommended to include the following files:
+#  .idea/
+#  *.iml
+#  *.ipr
+#  *.iws
+#  For a PyCharm project, it is recommended to include the following directories:
+#  .idea/
+#  *.iml
+#  *.ipr
+#  *.iws
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# FastAPI specific
+*.db
+*.sqlite
+*.sqlite3
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Alembic
+# Keep alembic versions but ignore any local alembic config overrides
+# alembic.ini.local
+
+# Static files (if you're serving them)
+# static/uploads/
+# media/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Node.js (if you add any frontend components)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Pytest
+.pytest_cache/
+
+# Local development
+local_settings.py
+settings_local.py
+
+# Secrets and keys
+secrets.json
+keys.json
+*.key
+*.pem
+*.crt
+
+# Uploads directory (if you add file upload functionality)
+uploads/
+media/
+
+# Cache directories
+.cache/
+__pycache__/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# pytype
+.pytype/
+
+# Cython
+cython_debug/
+
+# FastAPI specific ignores
+app/static/uploads/
+app/media/
+app/logs/
+
+# Development tools
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local configuration
+config_local.py
+local_config.py
+
+# Temporary SQLite files
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Alembic local overrides
+alembic_local.ini
+
+# Local test databases
+test.db
+test.sqlite
+test.sqlite3
+
+# Local development databases
+dev.db
+dev.sqlite
+dev.sqlite3
+
+# Production databases (should never be committed)
+prod.db
+prod.sqlite
+prod.sqlite3
+
+# Local environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Local secrets
+secrets_local.json
+keys_local.json
+
+# Local uploads
+uploads_local/
+media_local/
+
+# Local logs
+logs_local/
+
+# Local cache
+cache_local/
+
+# Local temporary files
+tmp_local/
+temp_local/
+
+# Local backup files
+backup_local/
+backups_local/
+
+# Local test files
+test_local/
+tests_local/
+
+# Local coverage
+coverage_local/
+htmlcov_local/
+
+# Local pytest cache
+pytest_cache_local/
+
+# Local mypy cache
+mypy_cache_local/
+
+# Local development files
+dev_local/
+development_local/
+
+# Local production files
+prod_local/
+production_local/
+
+# Local staging files
+staging_local/
+
+# Local deployment files
+deploy_local/
+deployment_local/
+
+# Local monitoring files
+monitor_local/
+monitoring_local/
+
+# Local analytics files
+analytics_local/
+
+# Local reporting files
+reports_local/
+
+# Local documentation
+docs_local/
+documentation_local/
+
+# Local scripts
+scripts_local/
+
+# Local tools
+tools_local/
+
+# Local utilities
+utils_local/
+utilities_local/
+
+# Local helpers
+helpers_local/
+
+# Local common files
+common_local/
+
+# Local shared files
+shared_local/
+
+# Local core files
+core_local/
+
+# Local API files
+api_local/
+
+# Local models
+models_local/
+
+# Local schemas
+schemas_local/
+
+# Local repositories
+repositories_local/
+
+# Local services
+services_local/
+
+# Local utils
+utils_local/
+
+# Local static files
+static_local/
+
+# Local templates
+templates_local/
+
+# Local middleware
+middleware_local/
+
+# Local dependencies
+dependencies_local/
+
+# Local exceptions
+exceptions_local/
+
+# Local validators
+validators_local/
+
+# Local serializers
+serializers_local/
+
+# Local parsers
+parsers_local/
+
+# Local formatters
+formatters_local/
+
+# Local converters
+converters_local/
+
+# Local transformers
+transformers_local/
+
+# Local processors
+processors_local/
+
+# Local handlers
+handlers_local/
+
+# Local managers
+managers_local/
+
+# Local controllers
+controllers_local/
+
+# Local views
+views_local/
+
+# Local routes
+routes_local/
+
+# Local endpoints
+endpoints_local/
+
+# Local middleware
+middleware_local/
+
+# Local filters
+filters_local/
+
+# Local decorators
+decorators_local/
+
+# Local mixins
+mixins_local/
+
+# Local base classes
+base_local/
+
+# Local abstract classes
+abstract_local/
+
+# Local interfaces
+interfaces_local/
+
+# Local protocols
+protocols_local/
+
+# Local types
+types_local/
+
+# Local constants
+constants_local/
+
+# Local enums
+enums_local/
+
+# Local exceptions
+exceptions_local/
+
+# Local errors
+errors_local/
+
+# Local warnings
+warnings_local/
+
+# Local info
+info_local/
+
+# Local debug
+debug_local/
+
+# Local trace
+trace_local/
+
+# Local verbose
+verbose_local/
+
+# Local quiet
+quiet_local/
+
+# Local silent
+silent_local/
+
+# Local log levels
+log_levels_local/
+
+# Local loggers
+loggers_local/
+
+# Local logging
+logging_local/
+
+# Local audit
+audit_local/
+
+# Local security
+security_local/
+
+# Local authentication
+auth_local/
+
+# Local authorization
+authorization_local/
+
+# Local permissions
+permissions_local/
+
+# Local roles
+roles_local/
+
+# Local users
+users_local/
+
+# Local sessions
+sessions_local/
+
+# Local tokens
+tokens_local/
+
+# Local cookies
+cookies_local/
+
+# Local headers
+headers_local/
+
+# Local requests
+requests_local/
+
+# Local responses
+responses_local/
+
+# Local status codes
+status_codes_local/
+
+# Local error codes
+error_codes_local/
+
+# Local success codes
+success_codes_local/
+
+# Local warning codes
+warning_codes_local/
+
+# Local info codes
+info_codes_local/
+
+# Local debug codes
+debug_codes_local/
+
+# Local trace codes
+trace_codes_local/
+
+# Local verbose codes
+verbose_codes_local/
+
+# Local quiet codes
+quiet_codes_local/
+
+# Local silent codes
+silent_codes_local/

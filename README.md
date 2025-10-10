@@ -59,6 +59,7 @@ app/
 - 🔐 **JWT Authentication** - Secure token-based authentication system
 - 👤 **User Management** - Registration, login, password reset functionality
 - 📝 **Rich Profiles** - Comprehensive user profiles with academic and personal information
+- 📝 **Posts & Feed** - Content sharing with posts, likes, comments, and personalized feed
 - 🔍 **Advanced Search** - Filter and search users by multiple criteria
 - 📄 **Pagination** - Efficient data retrieval with pagination support
 - 🎯 **Gender & Religion** - Optional demographic fields for better user matching
@@ -161,6 +162,22 @@ The API will be available at:
 | `GET` | `/api/v1/profile/search` | Search profiles by criteria | ❌ |
 | `POST` | `/api/v1/profile/me/verify-school-email` | Verify school email | ✅ |
 
+### 📝 Posts & Feed Endpoints
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `POST` | `/api/v1/posts` | Create a new post | ✅ |
+| `GET` | `/api/v1/posts/feed` | Get personalized feed from connections | ✅ |
+| `GET` | `/api/v1/posts/{post_id}` | Get single post with details | ❌ |
+| `PUT` | `/api/v1/posts/{post_id}` | Update own post | ✅ |
+| `DELETE` | `/api/v1/posts/{post_id}` | Delete own post | ✅ |
+| `GET` | `/api/v1/posts/user/{user_id}` | Get user's posts with privacy filtering | ❌ |
+| `POST` | `/api/v1/posts/{post_id}/like` | Like/unlike post (toggle) | ✅ |
+| `GET` | `/api/v1/posts/{post_id}/likes` | Get users who liked post | ❌ |
+| `POST` | `/api/v1/posts/{post_id}/comments` | Add comment to post | ✅ |
+| `GET` | `/api/v1/posts/{post_id}/comments` | Get post comments with replies | ❌ |
+| `PUT` | `/api/v1/posts/comments/{comment_id}` | Update own comment | ✅ |
+| `DELETE` | `/api/v1/posts/comments/{comment_id}` | Delete own comment | ✅ |
+
 ## 💡 Example Usage
 
 ### 🔐 Authentication Examples
@@ -244,6 +261,58 @@ curl -X GET "http://localhost:9090/api/v1/profile/all?limit=10&offset=0&universi
 **8. Search profiles:**
 ```bash
 curl -X GET "http://localhost:9090/api/v1/profile/search?university=Tech%20University&major=Computer%20Science&limit=10"
+```
+
+### 📝 Posts & Feed Examples
+
+**9. Create a new post:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/posts" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Just finished my AI project! Excited to share the results with everyone.",
+    "media_urls": ["https://example.com/project-image.jpg"],
+    "privacy": "public"
+  }'
+```
+
+**10. Get personalized feed:**
+```bash
+curl -X GET "http://localhost:9090/api/v1/posts/feed?limit=10&offset=0" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**11. Like a post:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/posts/1/like" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**12. Add a comment:**
+```bash
+curl -X POST "http://localhost:9090/api/v1/posts/1/comments" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Amazing work! Would love to learn more about your approach."
+  }'
+```
+
+**13. Get post comments:**
+```bash
+curl -X GET "http://localhost:9090/api/v1/posts/1/comments?limit=10&offset=0"
+```
+
+**14. Update your post:**
+```bash
+curl -X PUT "http://localhost:9090/api/v1/posts/1" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Updated: Just finished my AI project! Here are the final results.",
+    "privacy": "connections"
+  }'
 ```
 
 ## 📝 Profile Fields
