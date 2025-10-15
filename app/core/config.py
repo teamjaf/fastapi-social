@@ -9,10 +9,10 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     
     # Database
-    DATABASE_URL: str = "postgresql://neondb_owner:npg_OMdlxjfb7Zz4@ep-crimson-forest-adct8a18-pooler.c-2.us-east-1.aws.neon.tech/fast-social?sslmode=require&channel_binding=require"
+    DATABASE_URL: str
     
     # JWT
-    SECRET_KEY: str = "your-secret-key-change-this-in-production"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     

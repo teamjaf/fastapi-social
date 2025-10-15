@@ -9,6 +9,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from app.core.database import Base
+from app.core.config import settings
 from app.models.user import User  # Import all models here
 from app.models.password_reset import PasswordResetToken  # Import all models here
 
@@ -43,7 +44,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = config.get_main_option("sqlalchemy.url") or settings.DATABASE_URL
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -62,8 +63,13 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    # Use DATABASE_URL from settings if not provided in alembic.ini
+    configuration = config.get_section(config.config_ini_section, {})
+    if not configuration.get("sqlalchemy.url"):
+        configuration["sqlalchemy.url"] = settings.DATABASE_URL
+    
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
